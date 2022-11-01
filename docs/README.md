@@ -12,7 +12,7 @@ conda activate dblock
 
 ## Getting started tutorial
 
-TODO
+See the [notebooks/Tutorial.ipynb](../notebooks/Tutorial.ipynb) notebook for getting started with the d-block model.
 
 ## Reproducing paper results
 
