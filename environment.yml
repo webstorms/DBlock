@@ -1,0 +1,15 @@
+name: dblock
+dependencies:
+  - python=3.8
+  - pytorch::pytorch
+  - pytorch::torchvision
+  - nvidia::cudatoolkit=11.3
+  - pytest
+  - seaborn
+  - conda-forge::h5py<3.2
+  - nb_conda_kernels=2.3.1
+  - pip:
+      - brainbox
+      - tables
+      - https://github.com/webstorms/Block/archive/refs/heads/main.zip
+      - --editable .
