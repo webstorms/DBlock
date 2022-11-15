@@ -1,7 +1,7 @@
 import numpy as np
 from brainbox.models import BBModel
 
-from block.models.builder import LinearModel
+from dblock.models.builder import LinearModel
 
 
 class BaseModel(BBModel):

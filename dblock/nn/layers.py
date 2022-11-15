@@ -93,3 +93,32 @@ class LinearDNeurons(BaseDNeurons):
         current = self._to_recurrent_current(spikes)
 
         return current
+
+
+class LinearNeurons(BaseNeurons):
+
+    def __init__(self, n_in, n_out, method, t_len, beta_init=[0.9], beta_requires_grad=False, spike_func=FastSigmoid.apply, scale=10, **kwargs):
+        super().__init__(method, t_len, beta_init, beta_requires_grad, spike_func, scale, **kwargs)
+        print("sdfsfsdfsd")
+        self._n_in = n_in
+        self._n_out = n_out
+
+        self._to_current = nn.Linear(n_in, n_out)
+        self._to_recurrent_current = nn.Linear(n_out, n_out)
+        self.init_weight(self._to_current.weight, "uniform", a=-np.sqrt(1 / n_in), b=np.sqrt(1 / n_in))
+        self.init_weight(self._to_current.bias, "constant", c=0)
+
+    @property
+    def hyperparams(self):
+        return {**super().hyperparams, "n_in": self._n_in, "n_out": self._n_out}
+
+    def get_recurrent_current(self, spikes):
+        return self._to_recurrent_current(spikes)
+
+    def forward(self, x, v_init=None, return_type=methods.RETURN_SPIKES):
+        x = x.permute(0, 2, 1)
+        current = self._to_current(x)
+        current = current.permute(0, 2, 1)
+        spikes = super().forward(current, v_init, return_type)
+
+        return spikes

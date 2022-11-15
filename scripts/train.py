@@ -1,6 +1,7 @@
 import os
 import ast
 import argparse
+from pathlib import Path
 
 import torch
 
@@ -46,19 +47,19 @@ def get_model(t_len, args):
         if args.d == 0:
             model = models.NMNISTModel(args.method, t_len, heterogeneous_beta=True, beta_requires_grad=beta_requires_grad, readout_max=readout_max, single_spike=single_spike, recurrent=recurrent, n_layers=args.n_layers, n_neurons=args.n_neurons)
         else:
-            model = models.NMNISTDModel(args.d, recurrent, args.method, t_len, args.n_neurons, args.n_layers, detach_recurrent_spikes, heterogeneous_beta=True, beta_requires_grad=beta_requires_grad, readout_max=readout_max, single_spike=single_spike)
+            model = models.NMNISTDModel(args.d, recurrent, args.method, t_len, args.n_neurons, args.n_layers, detach_recurrent_spikes, heterogeneous_beta=True, beta_requires_grad=beta_requires_grad, readout_max=readout_max, single_spike=single_spike, skip_connections=args.skip_connections)
     elif args.dataset == "shd":
         milestones = [30, 60, 90]
         if args.d == 0:
             model = models.SHDModel(args.method, t_len, heterogeneous_beta=True, beta_requires_grad=beta_requires_grad, readout_max=readout_max, single_spike=single_spike, recurrent=recurrent, n_layers=args.n_layers, n_neurons=args.n_neurons)
         else:
-            model = models.SHDDModel(args.d, recurrent, args.method, t_len, args.n_neurons, args.n_layers, detach_recurrent_spikes, heterogeneous_beta=True, beta_requires_grad=beta_requires_grad, readout_max=readout_max, single_spike=single_spike)
+            model = models.SHDDModel(args.d, recurrent, args.method, t_len, args.n_neurons, args.n_layers, detach_recurrent_spikes, heterogeneous_beta=True, beta_requires_grad=beta_requires_grad, readout_max=readout_max, single_spike=single_spike, skip_connections=args.skip_connections)
     elif args.dataset == "ssc":
         milestones = [30, 60]
         if args.d == 0:
             model = models.SSCModel(args.method, t_len, heterogeneous_beta=True, beta_requires_grad=beta_requires_grad, readout_max=readout_max, single_spike=single_spike, recurrent=recurrent, n_layers=args.n_layers, n_neurons=args.n_neurons)
         else:
-            model = models.SSCDModel(args.d, recurrent, args.method, t_len, args.n_neurons, args.n_layers, detach_recurrent_spikes, heterogeneous_beta=True, beta_requires_grad=beta_requires_grad, readout_max=readout_max, single_spike=single_spike)
+            model = models.SSCDModel(args.d, recurrent, args.method, t_len, args.n_neurons, args.n_layers, detach_recurrent_spikes, heterogeneous_beta=True, beta_requires_grad=beta_requires_grad, readout_max=readout_max, single_spike=single_spike, skip_connections=args.skip_connections)
 
     return model, milestones
 
@@ -75,6 +76,7 @@ def main():
     parser.add_argument("--beta_requires_grad", type=str)
     parser.add_argument("--readout_max", type=str, default="False")
     parser.add_argument("--single_spike", type=str, default="True")
+    parser.add_argument("--skip_connections", type=str, default="False")
     # For d-model
     parser.add_argument("--d", type=int, default=0)
     parser.add_argument("--recurrent", type=str, default="True")
@@ -93,7 +95,7 @@ def main():
 
     # Load arguments
     args = parser.parse_args()
-    base_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    base_path = Path(os.path.dirname(os.path.abspath(__file__))).parent
 
     # Instantiate the dataset
     print("Building dataset...")
