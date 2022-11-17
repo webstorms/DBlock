@@ -1,5 +1,6 @@
 import numpy as np
 
+from block.models.builder import VGG11Model
 from dblock.models.builder import LinearDModel
 from dblock.models.implementations.standard import BaseModel
 
