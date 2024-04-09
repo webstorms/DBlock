@@ -24,7 +24,7 @@ class LinearModel(BBModel):
         self._readout_max = readout_max
 
         self._layers = nn.ModuleList()
-
+        
         # Build hidden layers
         for i in range(n_layers):
             n_in = n_in if i == 0 else n_hidden

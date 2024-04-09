@@ -15,7 +15,7 @@ def test_odd_divisibility():
     base_neurons = layers.BaseDNeurons(d=3, recurrent=False, method="standard", t_len=40)
     assert base_neurons._block.t_len == 13
     assert base_neurons._last_block.t_len == 1
-
+    
 
 def test_return_spikes():
     base_neurons = layers.BaseDNeurons(d=2, recurrent=False, method="standard", t_len=40)

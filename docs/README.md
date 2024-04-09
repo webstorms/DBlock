@@ -12,7 +12,7 @@ conda activate dblock
 
 ## Getting started tutorial
 
-See the [notebooks/Tutorial.ipynb](../notebooks/Tutorial.ipynb) notebook for getting started with the d-block model.
+See the [notebooks/Tutorial.ipynb](../../DBlock/notebooks/Tutorial.ipynb) notebook for getting started with the d-block model.
 
 ## Reproducing paper results
 
@@ -42,11 +42,11 @@ python train.py --method=fast_naive --t_len=500 --beta_requires_grad=True --d=5 
 All speedup and training results can be built by running the `notebooks/results/benchmark_results.ipynb` and `notebooks/results/dataset_results.ipynb` notebooks. The code for the other paper figures can be found under `notebooks/figures` directory.
 
 ### Speedup results
-<img src="../figures/figure3.png" width="500">
+<img src="../../DBlock/figures/figure3.png" width="500">
 
 Training speedup of our $d$-block model over the standard SNN for feedforward and recurrent networks. **a.** Feedforward network training speedup as a function of the number of blocks $d$ and simulation steps $t$ (for fixed hidden neurons $n=100$ and batch size $b=128$). **b.** Feedforward network training speedup as a function of the number of blocks $d$ and hidden neurons $n$ (for fixed simulation steps $t=512$ and batch size $b=128$). **c.** Same as **a.** but for recurrent networks. **d.** Same as **b.** but for recurrent networks.
 
 ### Dataset results
-<img src="../figures/figure4.png" width="500">
+<img src="../../DBlock/figures/figure4.png" width="500">
 
 Analysis of our $d$-block model on challenging neuromorphic datasets. We use a single recurrently connected hidden layer network of $128$ neurons and report results for three repeat runs of the model for which the mean and s.d. are plotted. **a.** Accuracy as a function of the number of blocks $d$ using feedforward and recurrent connectivity. **b.** Accuracy with the spike reset being attached or detached from the computational graph during training. **c.** Accuracy as a function of an increasing number of hidden layers. **d.** Training speedup of our model vs the standard SNN as a function of the number of blocks $d$. **e.** Reduction in spikes during inference of our model vs the standard SNN as a function of blocks $d$.

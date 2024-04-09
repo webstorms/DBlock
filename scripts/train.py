@@ -108,7 +108,7 @@ def main():
     # Instantiate the trainer
     print("Started training...")
     # model_results_path = os.path.join(base_path, f"results/datasets/{args.dataset}")
-    model_results_path = os.path.join(base_path, f"results/datasets/control_sota/{args.dataset}")
+    model_results_path = os.path.join(base_path, f"results/datasets/{args.dataset}")
 
     snn_trainer = trainer.Trainer(model_results_path, model, dataset, args.epoch, args.batch, args.lr, milestones=milestones, device=args.device)
     snn_trainer.train(save=True)
